@@ -1,6 +1,11 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class App {
@@ -57,7 +62,8 @@ public class App {
     // trabalhando a persistencia dos dados
 
     // Criando uma conexão com o BD
-    getConexao();
+    //getConexao();
+    System.out.println(listaTodos());
       
 
   }
@@ -88,6 +94,56 @@ public class App {
       return null;
     }
 
+  }
+
+  public static List<Conta> listaTodos() throws SQLException {
+
+    Connection conn = getConexao();
+    List<Conta> contas = new ArrayList<>();
+    try {
+      String sql = "SELECT * FROM conta";
+
+      Statement stmt = conn.createStatement();
+
+      // guarda no objeto o resultado da consulta
+      ResultSet rs = stmt.executeQuery(sql);
+
+      
+      while (rs.next()) {
+        Conta c = new Conta();
+        c.setNumero(rs.getString("numero"));
+        //c.setCliente(rs.getString("cliente"));
+        c.setSaldo(rs.getDouble("saldo"));
+
+        contas.add(c);
+      }
+
+    } catch (SQLException ex) {
+      System.out.println("Não conseguiu listar as contas do BD.");
+    } finally {
+      conn.close();      
+    }
+    return contas;
+  }
+
+  public static void inserir(Conta conta) throws SQLException {
+    Connection conn = getConexao();
+    try {
+      String adicionar = "INSERT INTO conta (numero, cliente, saldo) VALUES (?,?,?)";
+
+      PreparedStatement ps = conn.prepareStatement(adicionar);
+      ps.setString(1, conta.getNumero());
+      ps.setString(2, conta.getCliente().getNome());
+      ps.setDouble(3, conta.getSaldo());
+      int res = ps.executeUpdate();
+      if (res == 1) {
+        System.out.println("Conta inserida com sucesso.");
+      }
+    } catch (SQLException ex) {
+      System.out.println("Não conseguiu adicionar uma conta no BD.");
+    } finally {
+      conn.close();
+    }
   }
 
 
