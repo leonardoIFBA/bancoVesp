@@ -200,7 +200,7 @@ public class App {
     }
   }
 
-  // este método altera uma conta no banco de dados
+  // este método exclui uma conta no banco de dados
   public static void deletar(Conta conta) throws SQLException {
     // estabelece uma conexão com o banco de dados
     Connection conn = getConexao();
