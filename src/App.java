@@ -7,7 +7,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class App {
   public static void main(String[] args) throws Exception {
     System.out.println("Hello, Banco IFBA!");
@@ -62,9 +61,8 @@ public class App {
     // trabalhando a persistencia dos dados
 
     // Criando uma conexão com o BD
-    //getConexao();
+    // getConexao();
     System.out.println(listaTodos());
-      
 
   }
 
@@ -76,7 +74,8 @@ public class App {
       Class.forName("com.mysql.cj.jdbc.Driver");
 
       // Configurando a nossa conexão com um banco de dados//
-      String url = "jdbc:mysql://200.128.9.179:3306/bancoifba"; //"jdbc:mysql://10.28.0.35:3306/bancoifba"; // caminho e nome do BD
+      String url = "jdbc:mysql://200.128.9.179:3306/bancoifba"; // "jdbc:mysql://10.28.0.35:3306/bancoifba"; // caminho
+                                                                // e nome do BD
       String username = "remoto"; // nome de um usuário de seu BD
       String password = "remoto"; // sua senha de acesso
 
@@ -108,11 +107,10 @@ public class App {
       // guarda no objeto o resultado da consulta
       ResultSet rs = stmt.executeQuery(sql);
 
-      
       while (rs.next()) {
         Conta c = new Conta();
         c.setNumero(rs.getString("numero"));
-        //c.setCliente(rs.getString("cliente"));
+        // c.setCliente(rs.getString("cliente"));
         c.setSaldo(rs.getDouble("saldo"));
 
         contas.add(c);
@@ -121,7 +119,7 @@ public class App {
     } catch (SQLException ex) {
       System.out.println("Não conseguiu listar as contas do BD.");
     } finally {
-      conn.close();      
+      conn.close();
     }
     return contas;
   }
@@ -145,6 +143,5 @@ public class App {
       conn.close();
     }
   }
-
 
 }
