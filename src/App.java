@@ -63,6 +63,7 @@ public class App {
     // Criando uma conexão com o BD
     // getConexao();
     System.out.println(listaTodos());
+    //testando o inserir
     Fisica cliente = new Fisica();
     cliente.setCpf("00000");
     cliente.setNome("leonardo");
