@@ -1,11 +1,7 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
+
 
 public class App {
   public static void main(String[] args) throws Exception {
@@ -62,7 +58,7 @@ public class App {
 
     // Criando uma conexão com o BD
     // getConexao();
-    System.out.println(listaTodos());
+    System.out.println(ContaService.listaTodos());
     //testando o inserir
     Fisica cliente = new Fisica();
     cliente.setCpf("00000");
@@ -72,19 +68,19 @@ public class App {
     conta.setNumero("555-6");
     conta.setSaldo(1000000);
     conta.setLimite(100);
-    inserir(conta);
-    System.out.println(listaTodos());
+    ContaService.inserir(conta);
+    System.out.println(ContaService.listaTodos());
     // testando atualizar
     conta.setCliente(p2);
     conta.setNumero("xxxx-6");
     conta.setSaldo(1000);
     conta.setLimite(0);
-    atualizar(conta, "555-6");
-    System.out.println(listaTodos());
+    ContaService.atualizar(conta, "555-6");
+    System.out.println(ContaService.listaTodos());
     // testando o delete
-    deletar(conta);
-    System.out.println(listaTodos());
-
+    ContaService.deletar(conta);
+    System.out.println(ContaService.listaTodos());
+    
   }
 
   // este método retorna uma conexão com o banco de dados
@@ -96,8 +92,8 @@ public class App {
       Class.forName("com.mysql.cj.jdbc.Driver");
 
       // Configurando a nossa conexão com um banco de dados//
-      String url = "jdbc:mysql://10.28.0.35:3306/bancoifba"; // "jdbc:mysql://200.179.0.35:3306/bancoifba"; // caminho e
-                                                             // nome do BD
+      //String url = "jdbc:mysql://10.28.0.35:3306/bancoifba"; // caminho e nome do BD
+      String url =  "jdbc:mysql://200.128.9.179:3306/bancoifba"; // caminho e nome do BD
       String username = "remoto"; // nome de um usuário de seu BD
       String password = "remoto"; // sua senha de acesso
 
@@ -120,7 +116,7 @@ public class App {
   }
 
   // este método retorna uma lista de contas cadastrados no banco de dados
-  public static List<Conta> listaTodos() throws SQLException {
+  /*public static List<Conta> listaTodos() throws SQLException {
 
     // estabelece uma conexão com o banco de dados
     Connection conn = getConexao();
@@ -222,6 +218,6 @@ public class App {
     } finally {
       conn.close();
     }
-  }
+  }*/
 
 }
